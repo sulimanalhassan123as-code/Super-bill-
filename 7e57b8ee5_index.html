@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SecureCheck AI — Cyber-Zero Developer Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:100%;min-height:100%;background:#070b14;font-family:'Inter',sans-serif;color:#fff;overflow-x:hidden;}
+
+  /* ── NAVBAR ── */
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 32px;
+    background:rgba(7,11,20,0.95);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    position:sticky;top:0;z-index:100;
+    backdrop-filter:blur(20px);
+  }
+  .nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+  .nav-logo-icon{
+    width:36px;height:36px;border-radius:8px;
+    background:linear-gradient(135deg,#6c63ff,#3ecfff);
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+  }
+  .nav-logo-text{font-size:17px;font-weight:700;color:#fff;}
+  .nav-logo-text span{color:#6c63ff;}
+  .nav-links{display:flex;align-items:center;gap:4px;}
+  .nav-link{
+    padding:8px 18px;border-radius:8px;font-size:14px;font-weight:500;
+    color:rgba(255,255,255,0.6);cursor:pointer;transition:all 0.2s;
+    border:none;background:transparent;
+  }
+  .nav-link:hover{color:#fff;background:rgba(255,255,255,0.05);}
+  .nav-link.active{
+    background:rgba(108,99,255,0.15);
+    border:1px solid rgba(108,99,255,0.3);
+    color:#fff;
+  }
+  .nav-right{display:flex;align-items:center;gap:14px;}
+  .system-badge{
+    display:flex;align-items:center;gap:6px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;padding:6px 14px;
+    font-size:12px;color:rgba(255,255,255,0.7);
+  }
+  .system-dot{width:7px;height:7px;border-radius:50%;background:#00e676;animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+  .nav-avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,#6c63ff,#3ecfff);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;cursor:pointer;
+  }
+
+  /* ── HERO ── */
+  .hero{
+    padding:60px 32px 50px;
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:1280px;margin:0 auto;gap:40px;
+    position:relative;
+  }
+  .hero-left{flex:1;max-width:520px;}
+  .cyber-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1px solid rgba(108,99,255,0.4);
+    border-radius:20px;padding:5px 14px;
+    font-size:11px;font-weight:600;letter-spacing:2px;
+    color:#6c63ff;margin-bottom:22px;
+    background:rgba(108,99,255,0.08);
+  }
+  .cyber-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#6c63ff;}
+  .hero-title{font-size:clamp(36px,4vw,58px);font-weight:800;line-height:1.15;margin-bottom:14px;}
+  .hero-title .blue{color:#3ecfff;}
+  .hero-title .purple{color:#b57aff;}
+  .hero-subtitle{font-size:15px;color:rgba(255,255,255,0.5);font-weight:500;margin-bottom:10px;}
+  .hero-desc{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:32px;max-width:440px;}
+
+  /* STAT CARDS */
+  .stat-cards{display:flex;gap:12px;flex-wrap:wrap;}
+  .stat-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:12px;padding:14px 18px;
+    display:flex;align-items:center;gap:12px;
+    min-width:140px;flex:1;
+    transition:border-color 0.2s;
+  }
+  .stat-card:hover{border-color:rgba(108,99,255,0.3);}
+  .stat-icon{font-size:20px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    background:rgba(108,99,255,0.12);border-radius:8px;}
+  .stat-label{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.5px;margin-bottom:3px;}
+  .stat-value{font-size:20px;font-weight:800;color:#fff;}
+  .stat-change{font-size:11px;color:#00e676;font-weight:600;margin-left:4px;}
+  .stat-change.orange{color:#ff9800;}
+
+  /* ── HERO RIGHT (3D SHIELD) ── */
+  .hero-right{
+    flex:0 0 460px;height:420px;
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .shield-scene{position:relative;width:320px;height:320px;}
+
+  /* Orbit rings */
+  .orbit{
+    position:absolute;border-radius:50%;border:1px solid;
+    animation:spin linear infinite;
+  }
+  .orbit1{width:300px;height:300px;top:10px;left:10px;border-color:rgba(108,99,255,0.25);animation-duration:12s;}
+  .orbit2{width:360px;height:240px;top:40px;left:-20px;border-color:rgba(62,207,255,0.15);animation-duration:18s;animation-direction:reverse;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+  /* Orbit dots */
+  .orbit-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#3ecfff;top:-5px;left:50%;margin-left:-5px;box-shadow:0 0 8px #3ecfff;}
+  .orbit-dot2{background:#b57aff;box-shadow:0 0 8px #b57aff;top:50%;left:-5px;margin-top:-5px;margin-left:0;}
+
+  /* Glow platform */
+  .shield-platform{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    width:180px;height:20px;border-radius:50%;
+    background:radial-gradient(ellipse,rgba(108,99,255,0.6) 0%,transparent 70%);
+    filter:blur(8px);
+    animation:platformPulse 3s ease-in-out infinite;
+  }
+  @keyframes platformPulse{0%,100%{opacity:0.6;transform:translateX(-50%) scaleX(1)}50%{opacity:1;transform:translateX(-50%) scaleX(1.1)}}
+
+  /* 3D Shield */
+  .shield-3d{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-55%);
+    width:160px;height:180px;
+    display:flex;align-items:center;justify-content:center;
+    animation:float 4s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translate(-50%,-55%) translateY(0)}50%{transform:translate(-50%,-55%) translateY(-12px)}}
+
+  .shield-svg{width:100%;height:100%;filter:drop-shadow(0 0 30px rgba(108,99,255,0.7)) drop-shadow(0 0 60px rgba(62,207,255,0.3));}
+
+  /* Floating cards */
+  .float-card{
+    position:absolute;
+    background:rgba(10,15,30,0.9);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:12px;padding:10px 14px;
+    backdrop-filter:blur(10px);
+    white-space:nowrap;
+  }
+  .float-card-label{font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:3px;}
+  .float-card-value{font-size:12px;font-weight:700;display:flex;align-items:center;gap:5px;}
+  .float-dot{width:6px;height:6px;border-radius:50%;}
+
+  .fc-ai{top:20px;left:-30px;}
+  .fc-monitor{bottom:100px;left:-50px;}
+  .fc-status{top:60px;right:-40px;}
+
+  /* ── SECTION ── */
+  section{max-width:1280px;margin:0 auto;padding:0 32px 50px;}
+
+  /* ── FEATURE GRID ── */
+  .grid-title{font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:2px;font-weight:600;margin-bottom:20px;}
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .feature-card{
+    border-radius:16px;padding:24px;
+    border:1px solid rgba(255,255,255,0.06);
+    position:relative;overflow:hidden;
+    transition:transform 0.2s,border-color 0.2s;
+    cursor:pointer;
+  }
+  .feature-card:hover{transform:translateY(-3px);}
+  .feature-card.purple{background:linear-gradient(145deg,#1a1040 0%,#0f0a2e 100%);border-color:rgba(108,99,255,0.2);}
+  .feature-card.purple:hover{border-color:rgba(108,99,255,0.5);}
+  .feature-card.blue{background:linear-gradient(145deg,#0a1a35 0%,#060f20 100%);border-color:rgba(62,207,255,0.2);}
+  .feature-card.blue:hover{border-color:rgba(62,207,255,0.5);}
+  .feature-card.green{background:linear-gradient(145deg,#0a2018 0%,#061510 100%);border-color:rgba(0,200,100,0.2);}
+  .feature-card.green:hover{border-color:rgba(0,200,100,0.5);}
+  .feature-card.orange{background:linear-gradient(145deg,#2a1010 0%,#180808 100%);border-color:rgba(255,100,50,0.2);}
+  .feature-card.orange:hover{border-color:rgba(255,100,50,0.5);}
+  .feature-card.gold{background:linear-gradient(145deg,#201500 0%,#120d00 100%);border-color:rgba(255,180,0,0.2);}
+  .feature-card.gold:hover{border-color:rgba(255,180,0,0.5);}
+  .feature-card.violet{background:linear-gradient(145deg,#180a30 0%,#0e0520 100%);border-color:rgba(160,80,255,0.2);}
+  .feature-card.violet:hover{border-color:rgba(160,80,255,0.5);}
+
+  .card-icon{width:72px;height:72px;margin-bottom:16px;object-fit:contain;}
+  .card-icon-wrap{width:80px;height:80px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;}
+
+  .card-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;}
+  .card-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:20px;}
+  .card-footer{display:flex;align-items:center;justify-content:space-between;}
+  .card-badge{
+    font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;
+  }
+  .badge-purple{background:rgba(108,99,255,0.15);color:#a89aff;}
+  .badge-blue{background:rgba(62,207,255,0.12);color:#3ecfff;}
+  .badge-green{background:rgba(0,200,100,0.12);color:#00e676;}
+  .badge-orange{background:rgba(255,100,50,0.12);color:#ff6432;}
+  .badge-gold{background:rgba(255,180,0,0.12);color:#ffb300;}
+  .badge-violet{background:rgba(160,80,255,0.12);color:#c084fc;}
+
+  .card-arrow{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;cursor:pointer;transition:transform 0.2s;
+    flex-shrink:0;
+  }
+  .card-arrow:hover{transform:translateX(3px);}
+  .arrow-purple{background:rgba(108,99,255,0.2);color:#a89aff;}
+  .arrow-blue{background:rgba(62,207,255,0.2);color:#3ecfff;}
+  .arrow-green{background:rgba(0,200,100,0.2);color:#00e676;}
+  .arrow-orange{background:rgba(255,100,50,0.2);color:#ff6432;}
+  .arrow-gold{background:rgba(255,180,0,0.2);color:#ffb300;}
+  .arrow-violet{background:rgba(160,80,255,0.2);color:#c084fc;}
+
+  /* 3D ICONS using CSS */
+  /* Shield icon */
+  .icon-shield{
+    width:70px;height:70px;
+    background:linear-gradient(145deg,#8a6aff,#5040cc);
+    clip-path:polygon(50% 0%,100% 20%,100% 60%,50% 100%,0% 60%,0% 20%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 20px rgba(108,99,255,0.5),inset 0 2px 4px rgba(255,255,255,0.2);
+    position:relative;
+  }
+  .icon-shield::after{content:'🛡';font-size:28px;position:absolute;}
+
+  .icon-stack{font-size:50px;filter:drop-shadow(0 0 12px rgba(62,207,255,0.6));}
+  .icon-globe{font-size:54px;filter:drop-shadow(0 0 12px rgba(0,200,100,0.6));}
+  .icon-api{
+    width:70px;height:70px;
+    background:linear-gradient(145deg,#ff6432,#cc3a00);
+    clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 20px rgba(255,100,50,0.5);
+    font-size:14px;font-weight:900;color:#fff;
+    position:relative;
+  }
+  .icon-cards{font-size:50px;filter:drop-shadow(0 0 14px rgba(255,180,0,0.7));}
+  .icon-bot{font-size:52px;filter:drop-shadow(0 0 14px rgba(160,80,255,0.7));}
+
+  /* ── BOTTOM BANNER ── */
+  .bottom-banner{
+    max-width:1280px;margin:0 auto;padding:0 32px 40px;
+  }
+  .banner-inner{
+    background:linear-gradient(135deg,#0f0f2a 0%,#0a1a2e 50%,#0f0f2a 100%);
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px;
+    padding:24px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:20px;
+  }
+  .banner-left{display:flex;align-items:center;gap:18px;}
+  .banner-rocket{font-size:40px;filter:drop-shadow(0 0 10px rgba(108,99,255,0.5));}
+  .banner-text-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+  .banner-text-title .blue{color:#3ecfff;}
+  .banner-text-title .purple{color:#b57aff;}
+  .banner-text-sub{font-size:13px;color:rgba(255,255,255,0.4);}
+  .banner-btn{
+    display:flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,#3a3aff,#6c63ff);
+    border:none;border-radius:10px;
+    padding:12px 22px;font-size:14px;font-weight:600;color:#fff;
+    cursor:pointer;transition:all 0.2s;white-space:nowrap;
+    box-shadow:0 4px 20px rgba(108,99,255,0.4);
+  }
+  .banner-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,99,255,0.6);}
+
+  /* ── STARS BG ── */
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle linear infinite;}
+  @keyframes twinkle{0%,100%{opacity:0.1}50%{opacity:0.6}}
+
+  /* All content above stars */
+  nav,main{position:relative;z-index:1;}
+
+  /* Responsive */
+  @media(max-width:900px){
+    .hero{flex-direction:column;padding:32px 16px 30px;}
+    .hero-right{display:none;}
+    .feature-grid{grid-template-columns:1fr 1fr;gap:12px;}
+    nav{padding:12px 16px;}
+    .nav-links{display:none;}
+    section{padding:0 16px 32px;}
+    .bottom-banner{padding:0 16px 24px;}
+    .banner-inner{flex-direction:column;text-align:center;}
+  }
+  @media(max-width:600px){
+    .feature-grid{grid-template-columns:1fr;}
+    .stat-cards{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Stars background -->
+<div class="stars" id="stars"></div>
+
+<main>
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">🛡</div>
+    <div class="nav-logo-text"><span>Secure</span>Check AI</div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active">Home</button>
+    <button class="nav-link">Workspaces</button>
+    <button class="nav-link">AI Assistant</button>
+    <button class="nav-link">Reports</button>
+    <button class="nav-link">Settings</button>
+  </div>
+  <div class="nav-right">
+    <div class="system-badge">
+      <div class="system-dot"></div>
+      System Online
+    </div>
+    <div class="nav-avatar">SA</div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="cyber-badge">CYBER DEFENSE PLATFORM</div>
+    <h1 class="hero-title">
+      <span class="blue">Cyber-Zero</span><br>
+      <span style="color:#fff">Developer Hub</span>
+    </h1>
+    <div class="hero-subtitle">Developer Intelligence Platform</div>
+    <div class="hero-desc">Unified workspaces for security scanning, intelligence gathering, and system management. Built for developers, secured by AI.</div>
+
+    <!-- Stats -->
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-icon">🛡</div>
+        <div>
+          <div class="stat-label">TOTAL SCANS</div>
+          <div style="display:flex;align-items:baseline;gap:4px;">
+            <div class="stat-value">1,248</div>
+            <div class="stat-change">+12%</div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(255,60,60,0.12);">⚡</div>
+        <div>
+          <div class="stat-label">THREATS FOUND</div>
+          <div style="display:flex;align-items:baseline;gap:4px;">
+            <div class="stat-value">86</div>
+            <div class="stat-change orange">+8%</div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(62,207,255,0.12);">🎯</div>
+        <div>
+          <div class="stat-label">AI ACCURACY</div>
+          <div style="display:flex;align-items:baseline;gap:4px;">
+            <div class="stat-value">98.6%</div>
+            <div class="stat-change">+2.1%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — 3D SHIELD SCENE -->
+  <div class="hero-right">
+    <div class="shield-scene">
+      <!-- Orbit rings -->
+      <div class="orbit orbit1"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit2"><div class="orbit-dot2"></div></div>
+
+      <!-- Platform glow -->
+      <div class="shield-platform"></div>
+
+      <!-- 3D Shield SVG -->
+      <div class="shield-3d">
+        <svg class="shield-svg" viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sg1" x1="0" y1="0" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#a78bfa"/>
+              <stop offset="50%" stop-color="#6c63ff"/>
+              <stop offset="100%" stop-color="#3ecfff"/>
+            </linearGradient>
+            <linearGradient id="sg2" x1="0" y1="0" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Base platform -->
+          <ellipse cx="80" cy="168" rx="55" ry="8" fill="rgba(108,99,255,0.3)"/>
+          <ellipse cx="80" cy="164" rx="40" ry="5" fill="rgba(62,207,255,0.2)"/>
+          <!-- Shield body -->
+          <path d="M80 8 L148 36 L148 100 Q148 148 80 172 Q12 148 12 100 L12 36 Z" fill="url(#sg1)" filter="url(#glow)"/>
+          <!-- Inner shine -->
+          <path d="M80 18 L138 42 L138 98 Q138 138 80 158 Q22 138 22 98 L22 42 Z" fill="url(#sg2)"/>
+          <!-- Inner frame -->
+          <path d="M80 28 L128 50 L128 96 Q128 128 80 148 Q32 128 32 96 L32 50 Z" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+          <!-- Check mark -->
+          <path d="M52 90 L70 108 L110 68" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+          <!-- Glow circles -->
+          <circle cx="80" cy="88" r="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <circle cx="80" cy="88" r="45" fill="none" stroke="rgba(108,99,255,0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <!-- Floating info cards -->
+      <div class="float-card fc-ai">
+        <div class="float-card-label">AI Protection</div>
+        <div class="float-card-value"><div class="float-dot" style="background:#00e676"></div>Active</div>
+      </div>
+      <div class="float-card fc-monitor">
+        <div class="float-card-label">Real-time Monitor</div>
+        <div class="float-card-value"><div class="float-dot" style="background:#00e676"></div>Live</div>
+      </div>
+      <div class="float-card fc-status">
+        <div class="float-card-label">System Status</div>
+        <div class="float-card-value"><div class="float-dot" style="background:#00e676"></div>Secure</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FEATURE GRID ── -->
+<section>
+  <div class="feature-grid">
+
+    <!-- Security Scanner -->
+    <div class="feature-card purple">
+      <div class="card-icon-wrap">
+        <div style="font-size:56px;filter:drop-shadow(0 0 16px rgba(108,99,255,0.8));">🛡️</div>
+      </div>
+      <div class="card-name">Security Scanner</div>
+      <div class="card-desc">Scan applications, websites, and networks for vulnerabilities.</div>
+      <div class="card-footer">
+        <div class="card-badge badge-purple">24 Active Scans</div>
+        <div class="card-arrow arrow-purple">→</div>
+      </div>
+    </div>
+
+    <!-- Technology Intelligence -->
+    <div class="feature-card blue">
+      <div class="card-icon-wrap">
+        <div style="font-size:52px;filter:drop-shadow(0 0 16px rgba(62,207,255,0.8));">🗄️</div>
+      </div>
+      <div class="card-name">Technology Intelligence</div>
+      <div class="card-desc">Detect technologies, frameworks, libraries and server stacks.</div>
+      <div class="card-footer">
+        <div class="card-badge badge-blue">1,248 Detections</div>
+        <div class="card-arrow arrow-blue">→</div>
+      </div>
+    </div>
+
+    <!-- Domain Intelligence -->
+    <div class="feature-card green">
+      <div class="card-icon-wrap">
+        <div style="font-size:54px;filter:drop-shadow(0 0 16px rgba(0,200,100,0.8));">🌐</div>
+      </div>
+      <div class="card-name">Domain Intelligence</div>
+      <div class="card-desc">WHOIS lookup, DNS analysis, reputation and domain insights.</div>
+      <div class="card-footer">
+        <div class="card-badge badge-green">892 Domains</div>
+        <div class="card-arrow arrow-green">→</div>
+      </div>
+    </div>
+
+    <!-- API Intelligence -->
+    <div class="feature-card orange">
+      <div class="card-icon-wrap">
+        <div style="
+          width:66px;height:66px;
+          background:linear-gradient(145deg,#ff6432,#cc2200);
+          clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);
+          display:flex;align-items:center;justify-content:center;
+          font-size:15px;font-weight:900;color:#fff;
+          box-shadow:0 0 20px rgba(255,100,50,0.6);
+          letter-spacing:-0.5px;
+        ">API</div>
+      </div>
+      <div class="card-name">API Intelligence</div>
+      <div class="card-desc">Analyze APIs, endpoints, security and documentation.</div>
+      <div class="card-footer">
+        <div class="card-badge badge-orange">156 APIs</div>
+        <div class="card-arrow arrow-orange">→</div>
+      </div>
+    </div>
+
+    <!-- Payment Lab -->
+    <div class="feature-card gold">
+      <div class="card-icon-wrap">
+        <div style="font-size:52px;filter:drop-shadow(0 0 16px rgba(255,180,0,0.8));">💳</div>
+      </div>
+      <div class="card-name">Payment Lab</div>
+      <div class="card-desc">Test payment systems, integrations and flows safely.</div>
+      <div class="card-footer">
+        <div class="card-badge badge-gold">12 Gateways</div>
+        <div class="card-arrow arrow-gold">→</div>
+      </div>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="feature-card violet">
+      <div class="card-icon-wrap">
+        <div style="font-size:52px;filter:drop-shadow(0 0 16px rgba(160,80,255,0.8));">🤖</div>
+      </div>
+      <div class="card-name">AI Assistant</div>
+      <div class="card-desc">Get AI-powered insights, recommendations and fixes.</div>
+      <div class="card-footer">
+        <div class="card-badge badge-violet">Smart &amp; Secure</div>
+        <div class="card-arrow arrow-violet">→</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── BOTTOM BANNER ── -->
+<div class="bottom-banner">
+  <div class="banner-inner">
+    <div class="banner-left">
+      <div class="banner-rocket">🚀</div>
+      <div>
+        <div class="banner-text-title">
+          Built for <span class="blue">Developers</span>. Secured by <span class="purple">AI</span>.
+        </div>
+        <div class="banner-text-sub">Cyber-Zero protection for a safer digital tomorrow.</div>
+      </div>
+    </div>
+    <button class="banner-btn">
+      <span>↗</span> View System Report
+    </button>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── GENERATE STARS ──
+const starsEl = document.getElementById('stars');
+for(let i=0;i<120;i++){
+  const s = document.createElement('div');
+  s.className='star';
+  const size = Math.random()*2+0.5;
+  s.style.cssText=`
+    width:${size}px;height:${size}px;
+    top:${Math.random()*100}%;left:${Math.random()*100}%;
+    animation-duration:${2+Math.random()*4}s;
+    animation-delay:${Math.random()*4}s;
+  `;
+  starsEl.appendChild(s);
+}
+
+// ── ANIMATED COUNTERS ──
+function animateCounter(el, target, suffix=''){
+  let start=0;
+  const duration=1800;
+  const step=timestamp=>{
+    if(!start) start=timestamp;
+    const progress=Math.min((timestamp-start)/duration,1);
+    const ease=1-Math.pow(1-progress,3);
+    const val=Math.floor(ease*target);
+    el.textContent = val.toLocaleString()+suffix;
+    if(progress<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// Run counters on load
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const vals = document.querySelectorAll('.stat-value');
+    animateCounter(vals[0],1248);
+    animateCounter(vals[1],86);
+    // Special for percentage
+    let s2=0;
+    const duration=1800;
+    const step2=ts=>{
+      if(!s2)s2=ts;
+      const p=Math.min((ts-s2)/duration,1);
+      const e=1-Math.pow(1-p,3);
+      vals[2].textContent=(e*98.6).toFixed(1)+'%';
+      if(p<1)requestAnimationFrame(step2);
+    };
+    requestAnimationFrame(step2);
+  },300);
+});
+
+// ── NAV ACTIVE STATE ──
+document.querySelectorAll('.nav-link').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// ── CARD CLICK RIPPLE ──
+document.querySelectorAll('.feature-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    card.style.transform='scale(0.98)';
+    setTimeout(()=>card.style.transform='',150);
+  });
+});
+
+// ── REAL-TIME CLOCK on system badge ──
+function updateClock(){
+  const now=new Date();
+  const h=now.getHours().toString().padStart(2,'0');
+  const m=now.getMinutes().toString().padStart(2,'0');
+  const s=now.getSeconds().toString().padStart(2,'0');
+}
+setInterval(updateClock,1000);
+
+// ── LIVE SCAN COUNTER SIMULATION ──
+setInterval(()=>{
+  const vals=document.querySelectorAll('.stat-value');
+  if(vals[0]){
+    const current=parseInt(vals[0].textContent.replace(',',''));
+    if(Math.random()>0.7) vals[0].textContent=(current+1).toLocaleString();
+  }
+},3000);
+</script>
+</body>
+</html>
